@@ -1,0 +1,13 @@
+hacking>=0.5.6,<0.8
+
+# Testing requirements
+coverage>=3.6
+django-nose
+mox>=0.5.3
+nose
+nose-exclude
+nosexcover
+nosehtmloutput>=0.0.3
+oslo.sphinx
+sphinx>=1.1.2
+selenium

@@ -1,0 +1,7 @@
+[run]
+branch = True
+source = semaphore
+omit = semaphore/tests/*,semaphore/openstack/*
+
+[report]
+ignore-errors = True

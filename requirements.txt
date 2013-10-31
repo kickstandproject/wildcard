@@ -1,0 +1,7 @@
+pbr>=0.5.21,<1.0
+Babel>=0.9.6
+
+lesscpy>=0.9j
+
+-f http://tarballs.openstack.org/horizon/horizon-2013.2.tar.gz#egg=horizon-2013.2
+horizon>=2013.2
