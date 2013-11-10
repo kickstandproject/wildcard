@@ -1,5 +1,9 @@
 # vim: tabstop=4 shiftwidth=4 softtabstop=4
 
+# Copyright 2012 United States Government as represented by the
+# Administrator of the National Aeronautics and Space Administration.
+# All Rights Reserved.
+#
 # Copyright 2012 Nebula, Inc.
 #
 #    Licensed under the Apache License, Version 2.0 (the "License"); you may
@@ -14,28 +18,12 @@
 #    License for the specific language governing permissions and limitations
 #    under the License.
 
-from django.utils.translation import ugettext_lazy as _  # noqa
-import horizon
+from django.conf.urls.defaults import patterns  # noqa
+from django.conf.urls.defaults import url  # noqa
+
+from semaphore.dashboards.admin.info import views
 
 
-class SystemPanels(horizon.PanelGroup):
-    slug = "admin"
-    name = _("System Panel")
-    panels = ('info',)
-
-
-class IdentityPanels(horizon.PanelGroup):
-    slug = "identity"
-    name = _("Identity Panel")
-    panels = ('domains', 'projects', 'users', 'groups', 'roles')
-
-
-class Admin(horizon.Dashboard):
-    name = _("Admin")
-    slug = "admin"
-    panels = (SystemPanels, IdentityPanels)
-    permissions = ('openstack.roles.admin',)
-    default_panel = 'users'
-
-
-horizon.register(Admin)
+urlpatterns = patterns(
+    'semaphore.dashboards.admin.info.views',
+    url(r'^$', views.IndexView.as_view(), name='index'))
