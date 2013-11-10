@@ -16,10 +16,14 @@
 def load_test_data(load_onto=None):
     from semaphore.test.test_data import exceptions
     from semaphore.test.test_data import keystone_data
+    from semaphore.test.test_data import payload_data
 
     # The order of these loaders matters, some depend on others.
-    loaders = (exceptions.data,
-               keystone_data.data)
+    loaders = (
+        exceptions.data,
+        keystone_data.data,
+        payload_data.data,
+    )
     if load_onto:
         for data_func in loaders:
             data_func(load_onto)

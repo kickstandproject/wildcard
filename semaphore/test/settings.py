@@ -43,6 +43,7 @@ INSTALLED_APPS = (
     'openstack_auth',
     'semaphore',
     'semaphore.dashboards.admin',
+    'semaphore.dashboards.project',
     'semaphore.dashboards.settings',
 )
 
