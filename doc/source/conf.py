@@ -22,8 +22,6 @@ sys.path.insert(0, os.path.abspath('../..'))
 # extensions coming with Sphinx (named 'sphinx.ext.*') or your custom ones.
 extensions = [
     'sphinx.ext.autodoc',
-    #'sphinx.ext.intersphinx',
-    'oslo.sphinx'
 ]
 
 # autodoc generation is a bit aggressive and a nuisance when doing heavy
@@ -38,7 +36,7 @@ master_doc = 'index'
 
 # General information about the project.
 project = u'semaphore'
-copyright = u'2013, OpenStack Foundation'
+copyright = u'2013, PolyBeacon, Inc.'
 
 # If true, '()' will be appended to :func: etc. cross-reference text.
 add_function_parentheses = True
@@ -68,7 +66,7 @@ latex_documents = [
     ('index',
      '%s.tex' % project,
      u'%s Documentation' % project,
-     u'OpenStack Foundation', 'manual'),
+     u'PolyBeacon, Inc.', 'manual'),
 ]
 
 # Example configuration for intersphinx: refer to the Python standard library.

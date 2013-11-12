@@ -1,11 +1,11 @@
-===============================
+=========
 semaphore
-===============================
+=========
 
 Semaphore
 
 * Free software: Apache license
-* Documentation: http://docs.openstack.org/developer/semaphore
+* Documentation: https://semaphore.readthedocs.org
 
 Features
 --------
