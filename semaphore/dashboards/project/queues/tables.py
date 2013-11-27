@@ -68,14 +68,14 @@ class DeleteQueuesAction(tables.DeleteAction):
 
 class QueuesTable(tables.DataTable):
 
-    uuid = tables.Column("uuid", verbose_name=_("UUID"))
     name = tables.Column("name", verbose_name=_("Name"))
-    created_at = tables.Column("created_at", verbose_name=_("Created At"))
-    updated_at = tables.Column("updated_at", verbose_name=_("Updated At"))
     description = tables.Column("description", verbose_name=_("Description"))
+    uuid = tables.Column("uuid", verbose_name=_("UUID"))
     disabled = tables.Column("disabled", verbose_name=_("Disabled"))
     user_id = tables.Column("user_id", verbose_name=_("User"))
     project_id = tables.Column("project_id", verbose_name=_("Project"))
+    created_at = tables.Column("created_at", verbose_name=_("Created At"))
+    updated_at = tables.Column("updated_at", verbose_name=_("Updated At"))
 
     class Meta:
         name = "queues"
