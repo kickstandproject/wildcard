@@ -121,7 +121,15 @@ SERVICE_CATALOG = [
          {"region": "RegionOne",
           "adminURL": "http://admin.trove.example.com:8779/v1.0",
           "publicURL": "http://public.trove.example.com:8779/v1.0",
-          "internalURL": "http://int.trove.example.com:8779/v1.0"}]}
+          "internalURL": "http://int.trove.example.com:8779/v1.0"}]},
+    {"type": "queue",
+     "name": "payload",
+     "endpoints_links": [],
+     "endpoints": [
+         {"region": "regionOne",
+          "adminURL": "http://admin.payload.example.com:9859",
+          "publicURL": "http://public.payload.example.com:9859",
+          "internalURL": "http://int.payload.example.com:9859"}]},
 ]
 
 

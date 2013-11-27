@@ -46,7 +46,7 @@ STATIC_URL = '/static/'
 ROOT_URLCONF = 'semaphore.urls'
 
 HORIZON_CONFIG = {
-    'dashboards': ('admin', 'settings'),
+    'dashboards': ('project', 'settings', 'admin'),
     'default_dashboard': 'admin',
     'user_home': 'semaphore.views.get_user_home',
     'ajax_query_limit': 10,
@@ -124,6 +124,7 @@ INSTALLED_APPS = (
     'openstack_auth',
     'semaphore',
     'semaphore.dashboards.admin',
+    'semaphore.dashboards.project',
     'semaphore.dashboards.settings',
 )
 

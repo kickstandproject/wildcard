@@ -1,0 +1,25 @@
+{% extends "horizon/common/_modal_form.html" %}
+{% load i18n %}
+{% load url from future %}
+
+{% block form_id %}update_queue_form{% endblock %}
+{% block form_action %}{% url 'horizon:project:queues:update' queue.uuid %}{% endblock %}
+
+{% block modal-header %}{% trans "Update Queue" %}{% endblock %}
+
+{% block modal-body %}
+<div class="left">
+    <fieldset>
+      {% include "horizon/common/_form_fields.html" %}
+    </fieldset>
+</div>
+<div class="right">
+    <h3>{% trans "Description" %}:</h3>
+    <p>{% trans "From here you can edit the queue's details."%}</p>
+</div>
+{% endblock %}
+
+{% block modal-footer %}
+  <input class="btn btn-primary pull-right" type="submit" value="{% trans "Update Queue" %}" />
+  <a href="{% url 'horizon:project:queues:index' %}" class="btn secondary cancel close">{% trans "Cancel" %}</a>
+{% endblock %}

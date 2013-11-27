@@ -35,6 +35,8 @@ Keystone/Nova/Glance/Swift et. al.
 """
 from semaphore.api import base
 from semaphore.api import keystone
+from semaphore.api import payload
 
 assert base
 assert keystone
+assert payload
