@@ -35,7 +35,7 @@ source_suffix = '.rst'
 master_doc = 'index'
 
 # General information about the project.
-project = u'semaphore'
+project = u'wildcard'
 copyright = u'2013, PolyBeacon, Inc.'
 
 # If true, '()' will be appended to :func: etc. cross-reference text.

@@ -2,6 +2,6 @@
 Usage
 ========
 
-To use semaphore in a project::
+To use wildcard in a project::
 
-	import semaphore
+	import wildcard

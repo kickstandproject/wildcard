@@ -53,4 +53,4 @@ ChangeLog
 
 # Application
 static/*
-semaphore/local/local_settings.py
+wildcard/local/local_settings.py

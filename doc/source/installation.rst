@@ -4,9 +4,9 @@ Installation
 Stable Version
 --------------
 
-We recommend install semaphore with ``pip``. At the command line::
+We recommend install wildcard with ``pip``. At the command line::
 
-    $ pip install semaphore
+    $ pip install wildcard
 
 Development (Unstable) Version
 ------------------------------
@@ -18,11 +18,11 @@ Development (Unstable) Version
     have obviously made changes that only affect our project but we credit the
     OpenStack project for the original [#f1]_.
 
-If you want to run the latest development version of semaphore you will need
+If you want to run the latest development version of wildcard you will need
 to install git and clone the repo from GitHub::
 
-    git clone https://github.com/kickstandproject/semaphore
-    cd semaphore
+    git clone https://github.com/kickstandproject/wildcard
+    cd wildcard
 
 Installing and using the virtualenv
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -38,24 +38,24 @@ additional packages (pip, distribute, greenlet) that are installed by the
 
 If all goes well, you should get a message something like this::
 
-    Semaphore development environment setup is complete.
+    Wildcard development environment setup is complete.
 
-    Semaphore development uses virtualenv to track and manage Python
+    Wildcard development uses virtualenv to track and manage Python
     dependencies while in development and testing.
 
-    To activate the semaphore virtualenv for the extent of your current shell
+    To activate the wildcard virtualenv for the extent of your current shell
     session you can run:
 
-    $ source /home/pabelanger/git/pabelanger/semaphore/.venv/bin/activate
+    $ source /home/pabelanger/git/pabelanger/wildcard/.venv/bin/activate
 
     Or, if you prefer, you can run commands in the virtualenv on a case by case
     basis by running:
 
-    $ /home/pabelanger/git/pabelanger/semaphore/tools/with_venv.sh <your command>
+    $ /home/pabelanger/git/pabelanger/wildcard/tools/with_venv.sh <your command>
 
     Also, make test will automatically use the virtualenv.
 
-To activate the semaphore virtualenv for the extent of your current shell session you can run::
+To activate the wildcard virtualenv for the extent of your current shell session you can run::
 
     source .venv/bin/activate
 

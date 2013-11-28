@@ -27,12 +27,12 @@ import install_venv_common as install_venv  # noqa
 
 def print_help(venv, root):
     help = """
-    Semaphore development environment setup is complete.
+    Wildcard development environment setup is complete.
 
-    Semaphore development uses virtualenv to track and manage Python
+    Wildcard development uses virtualenv to track and manage Python
     dependencies while in development and testing.
 
-    To activate the semaphore virtualenv for the extent of your current shell
+    To activate the wildcard virtualenv for the extent of your current shell
     session you can run:
 
     $ source %s/bin/activate
@@ -59,7 +59,7 @@ def main(argv):
     pip_requires = os.path.join(root, 'requirements.txt')
     test_requires = os.path.join(root, 'test-requirements.txt')
     py_version = "python%s.%s" % (sys.version_info[0], sys.version_info[1])
-    project = 'Semaphore'
+    project = 'Wildcard'
     install = install_venv.InstallVenv(root, venv, pip_requires, test_requires,
                                        py_version, project)
     options = install.parse_args(argv)
