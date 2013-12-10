@@ -36,6 +36,7 @@ class BaseQueueForm(forms.SelfHandlingForm):
 
     name = forms.CharField(label=_("Name"))
     description = forms.CharField(
+        required=False,
         label=_("Description"),
         widget=forms.widgets.Textarea,
     )

@@ -43,29 +43,20 @@ class QueueTests(test.TestCase):
         queues = res.context['queues_table'].data
         self.assertItemsEqual(queues, self.queues.list())
 
-    @test.create_stubs({api.payload: ('queue_create',)})
-    def test_create(self):
-        queue = self.queues.get(uuid='1')
+    def _test_create_successful(self, queue, create_args, post_data):
         api.payload.queue_create(
             IsA(http.HttpRequest),
-            name=queue.name,
-            description=queue.description,
+            **create_args
         ).AndReturn(queue)
         self.mox.ReplayAll()
 
-        formData = {
-            'method': 'CreateQueueForm',
-            'name': queue.name,
-            'description': queue.description,
-        }
-        res = self.client.post(CREATE_URL, formData)
+        post_data['method'] = 'CreateQueueForm'
+        res = self.client.post(CREATE_URL, post_data)
 
         self.assertNoFormErrors(res)
         self.assertMessageCount(success=1)
 
-    @test.create_stubs({api.payload: ('queue_get', 'queue_update')})
-    def test_update(self):
-        queue = self.queues.get(uuid='1')
+    def _test_update_successful(self, queue, update_args, post_data):
         api.payload.queue_get(
             IsA(http.HttpRequest),
             queue.uuid,
@@ -73,21 +64,75 @@ class QueueTests(test.TestCase):
         api.payload.queue_update(
             IsA(http.HttpRequest),
             queue.uuid,
-            name=queue.name,
-            description=queue.description,
+            **update_args
         ).AndReturn(None)
         self.mox.ReplayAll()
 
-        formData = {
-            'method': 'UpdateQueueForm',
-            'uuid': queue.uuid,
-            'name': queue.name,
-            'description': queue.description,
-        }
-        res = self.client.post(UPDATE_URL, formData)
+        post_data['method'] = 'UpdateQueueForm'
+        res = self.client.post(UPDATE_URL, post_data)
 
         self.assertNoFormErrors(res)
         self.assertMessageCount(success=1)
+
+    @test.create_stubs({api.payload: ('queue_create',)})
+    def test_create(self):
+        queue = self.queues.get(uuid='1')
+        self._test_create_successful(
+            queue,
+            {
+                'name': queue.name,
+                'description': queue.description,
+            },
+            {
+                'name': queue.name,
+                'description': queue.description,
+            },
+        )
+
+    @test.create_stubs({api.payload: ('queue_create',)})
+    def test_create_description_is_not_required(self):
+        queue = self.queues.get(uuid='1')
+        self._test_create_successful(
+            queue,
+            {
+                'name': queue.name,
+                'description': '',
+            },
+            {
+                'name': queue.name,
+            },
+        )
+
+    @test.create_stubs({api.payload: ('queue_get', 'queue_update')})
+    def test_update(self):
+        queue = self.queues.get(uuid='1')
+        self._test_update_successful(
+            queue,
+            {
+                'name': queue.name,
+                'description': queue.description,
+            },
+            {
+                'uuid': queue.uuid,
+                'name': queue.name,
+                'description': queue.description,
+            },
+        )
+
+    @test.create_stubs({api.payload: ('queue_get', 'queue_update')})
+    def test_update_description_not_required(self):
+        queue = self.queues.get(uuid='1')
+        self._test_update_successful(
+            queue,
+            {
+                'name': queue.name,
+                'description': '',
+            },
+            {
+                'uuid': queue.uuid,
+                'name': queue.name,
+            },
+        )
 
     @test.create_stubs({api.payload: ('queue_delete', 'queue_list')})
     def test_delete(self):
