@@ -8,5 +8,5 @@ nose
 nose-exclude
 nosexcover
 nosehtmloutput>=0.0.3
-sphinx>=1.1.2
+sphinx>=1.1.2,<1.2
 selenium
