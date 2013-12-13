@@ -14,22 +14,34 @@
 #    License for the specific language governing permissions and limitations
 #    under the License.
 
-from django.utils.translation import ugettext_lazy as _  # noqa
-
+from django.utils.translation import ugettext_lazy as _
 import horizon
 
 
 class BasePanels(horizon.PanelGroup):
+    slug = "base"
+    name = _("Overview")
+    panels = (
+        'overview',
+    )
+
+
+class QueuePanels(horizon.PanelGroup):
     slug = "queue"
     name = _("Manage Queue")
-    panels = ('queues',)
+    panels = (
+        'queues',
+    )
 
 
 class Project(horizon.Dashboard):
     name = _("Project")
     slug = "project"
-    panels = (BasePanels,)
-    default_panel = 'queues'
+    panels = (
+        BasePanels,
+        QueuePanels,
+    )
+    default_panel = 'overview'
     supports_tenants = True
 
 
