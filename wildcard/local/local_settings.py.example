@@ -35,6 +35,10 @@ OPENSTACK_KEYSTONE_BACKEND = {
     'can_edit_role': True
 }
 
+#KICKSTAND_PAYLOAD_BACKEND = {
+#    'name': 'native',
+#}
+
 # Set this to True if running on multi-domain model. When this is enabled, it
 # will require user to enter the Domain name in addition to username for login.
 # OPENSTACK_KEYSTONE_MULTIDOMAIN_SUPPORT = False

@@ -14,7 +14,8 @@
 #    License for the specific language governing permissions and limitations
 #    under the License.
 
-from django.utils.translation import ugettext_lazy as _  # noqa
+from django.conf import settings
+from django.utils.translation import ugettext_lazy as _
 import horizon
 
 from wildcard.dashboards.project import dashboard
@@ -24,4 +25,6 @@ class Queues(horizon.Panel):
     name = _("Queues")
     slug = 'queues'
 
-dashboard.Project.register(Queues)
+
+if getattr(settings, 'KICKSTAND_PAYLOAD_BACKEND', {}):
+    dashboard.Project.register(Queues)

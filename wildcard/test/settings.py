@@ -86,6 +86,8 @@ OPENSTACK_KEYSTONE_BACKEND = {
     'can_edit_role': True
 }
 
+KICKSTAND_PAYLOAD_BACKEND = True
+
 LOGGING['loggers']['wildcard'] = {
     'handlers': ['test'],
     'propagate': False,
