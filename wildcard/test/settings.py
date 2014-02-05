@@ -87,6 +87,7 @@ OPENSTACK_KEYSTONE_BACKEND = {
 }
 
 KICKSTAND_PAYLOAD_BACKEND = True
+KICKSTAND_RIPCORD_BACKEND = True
 
 LOGGING['loggers']['wildcard'] = {
     'handlers': ['test'],

@@ -8,3 +8,6 @@ horizon>=2013.2
 
 -f http://tarballs.kickstand-project.org/python-payloadclient/python-payloadclient-0.0.1a2.tar.gz#egg=python-payloadclient-0.0.1a2
 python-payloadclient>=0.0.1a2
+
+-f http://tarballs.kickstand-project.org/python-ripcordclient/python-ripcordclient-0.0.1a1.tar.gz#egg=python-ripcordclient-0.0.1a1
+python-ripcordclient>=0.0.1a1

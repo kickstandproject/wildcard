@@ -17,12 +17,14 @@ def load_test_data(load_onto=None):
     from wildcard.test.test_data import exceptions
     from wildcard.test.test_data import keystone_data
     from wildcard.test.test_data import payload_data
+    from wildcard.test.test_data import ripcord_data
 
     # The order of these loaders matters, some depend on others.
     loaders = (
         exceptions.data,
         keystone_data.data,
         payload_data.data,
+        ripcord_data.data,
     )
     if load_onto:
         for data_func in loaders:

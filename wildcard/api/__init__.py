@@ -36,7 +36,9 @@ Keystone/Nova/Glance/Swift et. al.
 from wildcard.api import base
 from wildcard.api import keystone
 from wildcard.api import payload
+from wildcard.api import ripcord
 
 assert base
 assert keystone
 assert payload
+assert ripcord

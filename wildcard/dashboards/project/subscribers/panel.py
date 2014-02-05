@@ -1,7 +1,5 @@
 # vim: tabstop=4 shiftwidth=4 softtabstop=4
 
-# Copyright 2012 Nebula, Inc.
-#
 #    Licensed under the Apache License, Version 2.0 (the "License"); you may
 #    not use this file except in compliance with the License. You may obtain
 #    a copy of the License at
@@ -14,44 +12,17 @@
 #    License for the specific language governing permissions and limitations
 #    under the License.
 
+from django.conf import settings
 from django.utils.translation import ugettext_lazy as _
 import horizon
 
-
-class BasePanels(horizon.PanelGroup):
-    slug = "base"
-    name = _("Overview")
-    panels = (
-        'overview',
-    )
+from wildcard.dashboards.project import dashboard
 
 
-class QueuePanels(horizon.PanelGroup):
-    slug = "queue"
-    name = _("Manage Queue")
-    panels = (
-        'queues',
-    )
+class Subscribers(horizon.Panel):
+    name = _("Subscribers")
+    slug = 'subscribers'
 
 
-class SubscriberPanels(horizon.PanelGroup):
-    slug = "subscriber"
-    name = _("Manage SIP")
-    panels = (
-        'subscribers',
-    )
-
-
-class Project(horizon.Dashboard):
-    name = _("Project")
-    slug = "project"
-    panels = (
-        BasePanels,
-        QueuePanels,
-        SubscriberPanels,
-    )
-    default_panel = 'overview'
-    supports_tenants = True
-
-
-horizon.register(Project)
+if getattr(settings, 'KICKSTAND_RIPCORD_BACKEND', {}):
+    dashboard.Project.register(Subscribers)
