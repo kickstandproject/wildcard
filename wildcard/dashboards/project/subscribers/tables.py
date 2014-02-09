@@ -44,7 +44,6 @@ class DeleteSubscribersAction(tables.DeleteAction):
 
 class SubscribersTable(tables.DataTable):
 
-    uuid = tables.Column('uuid', verbose_name=_("UUID"))
     username = tables.Column('username', verbose_name=_("Username"))
     email_address = tables.Column(
         'email_address',

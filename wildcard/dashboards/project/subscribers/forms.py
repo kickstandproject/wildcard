@@ -64,13 +64,21 @@ class CreateSubscriberForm(BaseSubscriberForm):
 
 class UpdateSubscriberForm(BaseSubscriberForm):
 
-    uuid = forms.CharField(label=_("UUID"), widget=forms.HiddenInput)
+    uuid = forms.CharField(
+        label=_("UUID"),
+        widget=forms.TextInput(attrs={'readonly': 'true'}),
+    )
     password = forms.RegexField(
         required=False,
         label=_("Password"),
         regex=validators.password_validator(),
         error_messages={'invalid': validators.password_validator_msg()}
     )
+
+    def __init__(self, *args, **kwargs):
+        super(UpdateSubscriberForm, self).__init__(*args, **kwargs)
+        self.fields.keyOrder.remove('uuid')
+        self.fields.keyOrder.insert(0, 'uuid')
 
     @sensitive_variables('data')
     def handle(self, request, data):
