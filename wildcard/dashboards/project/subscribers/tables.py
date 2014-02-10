@@ -34,6 +34,29 @@ class EditSubscriberLink(tables.LinkAction):
     classes = ("ajax-modal", "btn-edit")
 
 
+class ToggleEnabled(tables.BatchAction):
+    name = "toggle"
+    action_present = (_("Enable"), _("Disable"))
+    action_past = (_("Enabled"), _("Disabled"))
+    data_type_singular = _("Subscriber")
+    data_type_plural = _("Subscribers")
+    classes = ("btn-toggle",)
+
+    def allowed(self, request, subscriber=None):
+        if subscriber:
+            self.disabled = subscriber.disabled
+            self.current_present_action = int(not self.disabled)
+        return True
+
+    def action(self, request, obj_id):
+        api.ripcord.subscriber_update(
+            request,
+            obj_id,
+            disabled=not self.disabled
+        )
+        self.current_past_action = int(not self.disabled)
+
+
 class DeleteSubscribersAction(tables.DeleteAction):
     data_type_singular = _("Subscriber")
     data_type_plural = _("Subscribers")
@@ -52,11 +75,16 @@ class SubscribersTable(tables.DataTable):
     )
     domain = tables.Column('domain', verbose_name=_("Domain"))
     rpid = tables.Column('rpid', verbose_name=_("Remote Party ID"))
+    disabled = tables.Column("disabled", verbose_name=_("Disabled"))
 
     class Meta:
         name = "subscribers"
         verbose_name = _("Subscribers")
-        row_actions = (EditSubscriberLink, DeleteSubscribersAction)
+        row_actions = (
+            EditSubscriberLink,
+            ToggleEnabled,
+            DeleteSubscribersAction,
+        )
         table_actions = (CreateSubscriberLink, DeleteSubscribersAction)
 
     def get_object_id(self, datum):

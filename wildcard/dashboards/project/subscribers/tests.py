@@ -122,3 +122,45 @@ class SubscriberTests(test.TestCase):
         res = self.client.post(INDEX_URL, form_data)
 
         self.assertRedirectsNoFollow(res, INDEX_URL)
+
+    @test.create_stubs({api.ripcord: ('subscriber_update', 'subscriber_list')})
+    def test_enable_subscriber(self):
+        subscriber = self.subscribers.get(uuid='1')
+        subscriber.disabled = True
+
+        api.ripcord.subscriber_list(
+            IsA(http.HttpRequest),
+        ).AndReturn(self.subscribers.list())
+        api.ripcord.subscriber_update(
+            IsA(http.HttpRequest),
+            subscriber.uuid,
+            disabled=False
+        ).AndReturn(None)
+
+        self.mox.ReplayAll()
+
+        formData = {'action': 'subscribers__toggle__%s' % subscriber.uuid}
+        res = self.client.post(INDEX_URL, formData)
+
+        self.assertRedirectsNoFollow(res, INDEX_URL)
+
+    @test.create_stubs({api.ripcord: ('subscriber_update', 'subscriber_list')})
+    def test_disable_subscriber(self):
+        subscriber = self.subscribers.get(uuid="1")
+        subscriber.disabled = False
+
+        api.ripcord.subscriber_list(
+            IsA(http.HttpRequest),
+        ).AndReturn(self.subscribers.list())
+        api.ripcord.subscriber_update(
+            IsA(http.HttpRequest),
+            subscriber.uuid,
+            disabled=True
+        ).AndReturn(None)
+
+        self.mox.ReplayAll()
+
+        formData = {'action': 'subscribers__toggle__%s' % subscriber.uuid}
+        res = self.client.post(INDEX_URL, formData)
+
+        self.assertRedirectsNoFollow(res, INDEX_URL)
