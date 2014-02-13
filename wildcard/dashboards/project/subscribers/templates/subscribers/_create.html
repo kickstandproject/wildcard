@@ -19,3 +19,7 @@
   <input class="btn btn-primary pull-right" type="submit" value="{% trans "Create Subscriber" %}" />
   <a href="{% url 'horizon:project:subscribers:index' %}" class="btn secondary cancel close">{% trans "Cancel" %}</a>
 {% endblock %}
+
+{% block modal-js %}
+<script src='{{ STATIC_URL }}dashboard/js/input-with-button.js' type='text/javascript' charset='utf-8'></script>
+{% endblock %}

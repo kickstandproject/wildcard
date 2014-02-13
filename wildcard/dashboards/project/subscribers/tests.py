@@ -12,12 +12,14 @@
 #    License for the specific language governing permissions and limitations
 #    under the License.
 
+from django.conf import settings
 from django.core.urlresolvers import reverse
 from django import http
 
 from mox import IsA
 
 from wildcard import api
+from wildcard.dashboards.project.subscribers import forms
 from wildcard.test import helpers as test
 
 
@@ -162,3 +164,20 @@ class SubscriberTests(test.TestCase):
         res = self.client.post(INDEX_URL, formData)
 
         self.assertRedirectsNoFollow(res, INDEX_URL)
+
+
+class TextInputWithGenerator(test.TestCase):
+
+    def test_render(self):
+        w = forms.TextInputWithGenerator()
+        self.assertHTMLEqual(
+            w.render('test', 'test123'),
+            '<div class="input-with-button">'
+            '<input name="test" type="text" value="test123" />'
+            '<a class="btn pull-right" data-chars="%s" data-length="%s">'
+            'Generate</a>'
+            '</div>' % (
+                settings.KICKSTAND_RANDOM_PASSWORD_CHARS,
+                settings.KICKSTAND_RANDOM_PASSWORD_LENGTH
+            )
+        )

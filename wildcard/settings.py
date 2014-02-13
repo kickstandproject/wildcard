@@ -154,6 +154,10 @@ POLICY_FILES = {
 
 SECRET_KEY = None
 
+KICKSTAND_RANDOM_PASSWORD_LENGTH = 12
+import string
+KICKSTAND_RANDOM_PASSWORD_CHARS = string.ascii_letters + string.digits
+
 try:
     from local.local_settings import *  # noqa
 except ImportError:

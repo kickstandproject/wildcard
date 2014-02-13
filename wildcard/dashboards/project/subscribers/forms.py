@@ -12,6 +12,9 @@
 #    License for the specific language governing permissions and limitations
 #    under the License.
 
+from django.conf import settings
+from django.forms.util import flatatt
+from django.utils.safestring import mark_safe
 from django.utils.translation import ugettext_lazy as _
 from django.views.decorators.debug import sensitive_variables
 
@@ -23,13 +26,41 @@ from horizon.utils import validators
 from wildcard import api
 
 
+class TextInputWithGenerator(forms.TextInput):
+
+    btn_classes = (
+        'btn',
+        'pull-right',
+    )
+    btn_label = _("Generate")
+
+    def render(self, name, value, attrs=None):
+        text_input = super(TextInputWithGenerator, self).render(
+            name,
+            value,
+            attrs=attrs
+        )
+        return mark_safe(
+            '<div class="input-with-button">%s <a%s>%s</a></div>' % (
+                text_input,
+                flatatt({
+                    'class': ' '.join(self.btn_classes),
+                    'data-chars': settings.KICKSTAND_RANDOM_PASSWORD_CHARS,
+                    'data-length': settings.KICKSTAND_RANDOM_PASSWORD_LENGTH,
+                }),
+                self.btn_label,
+            )
+        )
+
+
 class BaseSubscriberForm(forms.SelfHandlingForm):
 
     username = forms.CharField(label=_("Username"))
     password = forms.RegexField(
         label=_("Password"),
         regex=validators.password_validator(),
-        error_messages={'invalid': validators.password_validator_msg()}
+        error_messages={'invalid': validators.password_validator_msg()},
+        widget=TextInputWithGenerator,
     )
     email_address = forms.EmailField(
         label=_("Email"),
@@ -72,7 +103,8 @@ class UpdateSubscriberForm(BaseSubscriberForm):
         required=False,
         label=_("Password"),
         regex=validators.password_validator(),
-        error_messages={'invalid': validators.password_validator_msg()}
+        error_messages={'invalid': validators.password_validator_msg()},
+        widget=TextInputWithGenerator,
     )
 
     def __init__(self, *args, **kwargs):

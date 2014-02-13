@@ -89,6 +89,10 @@ OPENSTACK_KEYSTONE_BACKEND = {
 KICKSTAND_PAYLOAD_BACKEND = True
 KICKSTAND_RIPCORD_BACKEND = True
 
+KICKSTAND_RANDOM_PASSWORD_LENGTH = 12
+import string
+KICKSTAND_RANDOM_PASSWORD_CHARS = string.ascii_letters + string.digits
+
 LOGGING['loggers']['wildcard'] = {
     'handlers': ['test'],
     'propagate': False,
