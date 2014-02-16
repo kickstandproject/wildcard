@@ -53,4 +53,5 @@ ChangeLog
 
 # Application
 static/*
+wildcard/local/.secret_key_store
 wildcard/local/local_settings.py

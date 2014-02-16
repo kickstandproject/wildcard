@@ -51,6 +51,19 @@ OPENSTACK_KEYSTONE_BACKEND = {
 # with Keystone V3. All entities will be created in the default domain.
 # OPENSTACK_KEYSTONE_DEFAULT_DOMAIN = 'Default'
 
+# Set custom secret key:
+# You can either set it to a specific value or you can let horizion generate a
+# default secret key that is unique on this machine, e.i. regardless of the
+# amount of Python WSGI workers (if used behind Apache+mod_wsgi): However, there
+# may be situations where you would want to set this explicitly, e.g. when
+# multiple dashboard instances are distributed on different machines (usually
+# behind a load-balancer). Either you have to make sure that a session gets all
+# requests routed to the same dashboard instance or you set the same SECRET_KEY
+# for all of them.
+from horizon.utils import secret_key
+SECRET_KEY = secret_key.generate_or_read_from_file(
+    os.path.join(LOCAL_PATH, '.secret_key_store'))
+
 LOGGING = {
     'version': 1,
     # When set to True this will disable all logging except

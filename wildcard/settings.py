@@ -159,8 +159,15 @@ try:
 except ImportError:
     logging.warning("No local_settings file found.")
 
-# Make this unique, and don't share it with anybody.
-SECRET_KEY = '2%frmi0l22k394o16mm2lmcrns*-#38#uban(^w-#c+4#k)@mt'
+# Ensure that we always have a SECRET_KEY set, even when no local_settings.py
+# file is present. See local_settings.py.example for full documentation on the
+# horizon.utils.secret_key module and its use.
+if not SECRET_KEY:
+    from horizon.utils import secret_key
+    LOCAL_PATH = os.path.join(
+        os.path.dirname(os.path.abspath(__file__)), 'local')
+    SECRET_KEY = secret_key.generate_or_read_from_file(
+        os.path.join(LOCAL_PATH, '.secret_key_store'))
 
 from wildcard import policy
 POLICY_CHECK_FUNCTION = policy.check
