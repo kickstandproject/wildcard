@@ -12,6 +12,7 @@
 #    License for the specific language governing permissions and limitations
 #    under the License.
 
+from ripcordclient.v1 import domain
 from ripcordclient.v1 import subscriber
 
 from wildcard.test.test_data import utils
@@ -19,6 +20,7 @@ from wildcard.test.test_data import utils
 
 def data(TEST):
     TEST.subscribers = utils.TestDataContainer()
+    TEST.project_domains = utils.TestDataContainer()
 
     subscriber_dict_1 = {
         'uuid': '1',
@@ -33,3 +35,13 @@ def data(TEST):
         subscriber.SubscriberManager(None), subscriber_dict_1
     )
     TEST.subscribers.add(subscriber1)
+
+    domain_dict_1 = {
+        'uuid': '1',
+        'name': 'test name',
+    }
+
+    domain1 = domain.Domain(
+        domain.DomainManager(None), domain_dict_1
+    )
+    TEST.project_domains.add(domain1)

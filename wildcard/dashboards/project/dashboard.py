@@ -39,6 +39,7 @@ class SubscriberPanels(horizon.PanelGroup):
     name = _("Manage SIP")
     panels = (
         'subscribers',
+        'domains',
     )
 
 

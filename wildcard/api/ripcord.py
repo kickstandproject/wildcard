@@ -46,3 +46,26 @@ def subscriber_update(request, uuid, **kwargs):
         uuid,
         **kwargs
     )
+
+
+def domain_create(request, **kwargs):
+    return client(request).domains.create(**kwargs)
+
+
+def domain_get(request, uuid):
+    return client(request).domains.get(uuid)
+
+
+def domain_delete(request, uuid):
+    return client(request).domains.delete(uuid)
+
+
+def domain_list(request):
+    return client(request).domains.list()
+
+
+def domain_update(request, uuid, **kwargs):
+    return client(request).domains.update(
+        uuid,
+        **kwargs
+    )
