@@ -29,6 +29,7 @@ def data(TEST):
         'domain': 'example.com',
         'email_address': 'test@example.com',
         'rpid': 'test rpid',
+        'disabled': False,
     }
 
     subscriber1 = subscriber.Subscriber(
