@@ -50,8 +50,7 @@ class CreateView(forms.ModalFormView):
     template_name = 'project/subscribers/create.html'
     success_url = INDEX_URL
 
-    @method_decorator(sensitive_post_parameters('password',
-                                                'confirm_password'))
+    @method_decorator(sensitive_post_parameters('password',))
     def dispatch(self, *args, **kwargs):
         return super(CreateView, self).dispatch(*args, **kwargs)
 
@@ -61,8 +60,7 @@ class UpdateView(forms.ModalFormView):
     template_name = 'project/subscribers/update.html'
     success_url = INDEX_URL
 
-    @method_decorator(sensitive_post_parameters('password',
-                                                'confirm_password'))
+    @method_decorator(sensitive_post_parameters('password',))
     def dispatch(self, *args, **kwargs):
         return super(UpdateView, self).dispatch(*args, **kwargs)
 

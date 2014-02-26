@@ -87,7 +87,6 @@ class SubscriberTests(test.TestCase):
     def test_create(self):
         subscriber = self.subscribers.get(uuid='1')
         post_data = extract_data(subscriber)
-        post_data['confirm_password'] = post_data['password']
         self._test_create_successful(
             subscriber,
             extract_data(subscriber),
@@ -98,7 +97,6 @@ class SubscriberTests(test.TestCase):
     def test_update(self):
         subscriber = self.subscribers.get(uuid='1')
         post_data = extract_data(subscriber)
-        post_data['confirm_password'] = post_data['password']
         post_data['uuid'] = subscriber.uuid
         self._test_update_successful(
             subscriber,
