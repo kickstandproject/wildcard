@@ -84,5 +84,5 @@ class UpdateView(forms.ModalFormView):
 
     def get_initial(self):
         subscriber = self.get_object()
-        fields = ['uuid', 'username', 'domain', 'email_address', 'rpid']
+        fields = ['uuid', 'username', 'domain_id', 'email_address', 'rpid']
         return {f: getattr(subscriber, f) for f in fields}

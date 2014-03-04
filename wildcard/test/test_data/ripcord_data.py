@@ -26,7 +26,7 @@ def data(TEST):
         'uuid': '1',
         'username': 'test username',
         'password': 'test password',
-        'domain': 'example.com',
+        'domain_id': '1',
         'email_address': 'test@example.com',
         'rpid': 'test rpid',
         'disabled': False,

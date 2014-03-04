@@ -13,6 +13,7 @@
 #    under the License.
 
 from django.template import defaultfilters
+from django.utils.functional import cached_property
 from django.utils.translation import ugettext_lazy as _
 
 from horizon import tables
@@ -65,6 +66,13 @@ class DeleteSubscribersAction(tables.DeleteAction):
         api.ripcord.subscriber_delete(request, obj_id)
 
 
+class DomainColumn(tables.Column):
+
+    def get_raw_data(self, datum):
+        data = super(DomainColumn, self).get_raw_data(datum)
+        return self.table._domains[data]
+
+
 class SubscribersTable(tables.DataTable):
 
     username = tables.Column('username', verbose_name=_("Username"))
@@ -73,7 +81,7 @@ class SubscribersTable(tables.DataTable):
         verbose_name=_("Email"),
         filters=[defaultfilters.urlize]
     )
-    domain = tables.Column('domain', verbose_name=_("Domain"))
+    domain = DomainColumn('domain_id', verbose_name=_("Domain"))
     rpid = tables.Column('rpid', verbose_name=_("Remote Party ID"))
     disabled = tables.Column("disabled", verbose_name=_("Disabled"))
 
@@ -86,6 +94,13 @@ class SubscribersTable(tables.DataTable):
             DeleteSubscribersAction,
         )
         table_actions = (CreateSubscriberLink, DeleteSubscribersAction)
+
+    @cached_property
+    def _domains(self):
+        return {
+            d.uuid: d.name
+            for d in api.ripcord.domain_list(self.request)
+        }
 
     def get_object_id(self, datum):
         return datum.uuid

@@ -66,14 +66,20 @@ class BaseSubscriberForm(forms.SelfHandlingForm):
         label=_("Email"),
         required=False,
     )
-    domain = forms.CharField(
+    domain_id = forms.ChoiceField(
         label=_("Domain"),
-        required=False,
     )
     rpid = forms.CharField(
         label=_("Remote Party ID"),
         required=False,
     )
+
+    def __init__(self, *args, **kwargs):
+        super(BaseSubscriberForm, self).__init__(*args, **kwargs)
+        self.fields['domain_id'].choices = [
+            (s.uuid, s.name)
+            for s in api.ripcord.domain_list(self.request)
+        ]
 
 
 class CreateSubscriberForm(BaseSubscriberForm):

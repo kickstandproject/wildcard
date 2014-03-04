@@ -32,7 +32,7 @@ def extract_data(subscriber):
     fields = [
         'username',
         'password',
-        'domain',
+        'domain_id',
         'email_address',
         'rpid',
     ]
@@ -41,11 +41,14 @@ def extract_data(subscriber):
 
 class SubscriberTests(test.TestCase):
 
-    @test.create_stubs({api.ripcord: ('subscriber_list',)})
+    @test.create_stubs({api.ripcord: ('subscriber_list', 'domain_list')})
     def test_index(self):
         api.ripcord.subscriber_list(
             IsA(http.HttpRequest)
         ).AndReturn(self.subscribers.list())
+        api.ripcord.domain_list(
+            IsA(http.HttpRequest)
+        ).AndReturn(self.project_domains.list())
         self.mox.ReplayAll()
 
         res = self.client.get(INDEX_URL)
@@ -55,6 +58,9 @@ class SubscriberTests(test.TestCase):
         self.assertItemsEqual(subscribers, self.subscribers.list())
 
     def _test_create_successful(self, subscriber, create_args, post_data):
+        api.ripcord.domain_list(
+            IsA(http.HttpRequest)
+        ).AndReturn(self.project_domains.list())
         api.ripcord.subscriber_create(
             IsA(http.HttpRequest),
             **create_args
@@ -72,6 +78,9 @@ class SubscriberTests(test.TestCase):
             IsA(http.HttpRequest),
             subscriber.uuid,
         ).AndReturn(subscriber)
+        api.ripcord.domain_list(
+            IsA(http.HttpRequest)
+        ).AndReturn(self.project_domains.list())
         api.ripcord.subscriber_update(
             IsA(http.HttpRequest),
             subscriber.uuid,
@@ -85,7 +94,7 @@ class SubscriberTests(test.TestCase):
         self.assertNoFormErrors(res)
         self.assertMessageCount(success=1)
 
-    @test.create_stubs({api.ripcord: ('subscriber_create',)})
+    @test.create_stubs({api.ripcord: ('subscriber_create', 'domain_list')})
     def test_create(self):
         subscriber = self.subscribers.get(uuid='1')
         post_data = extract_data(subscriber)
@@ -95,7 +104,9 @@ class SubscriberTests(test.TestCase):
             post_data,
         )
 
-    @test.create_stubs({api.ripcord: ('subscriber_get', 'subscriber_update')})
+    @test.create_stubs({
+        api.ripcord: ('subscriber_get', 'subscriber_update', 'domain_list'),
+    })
     def test_update(self):
         subscriber = self.subscribers.get(uuid='1')
         post_data = extract_data(subscriber)
