@@ -104,3 +104,6 @@ class SubscribersTable(tables.DataTable):
 
     def get_object_id(self, datum):
         return datum.uuid
+
+    def get_object_display(self, datum):
+        return datum.username

@@ -20,6 +20,7 @@ from mox import IsA
 
 from wildcard import api
 from wildcard.dashboards.project.subscribers import forms
+from wildcard.dashboards.project.subscribers import tables
 from wildcard.test import helpers as test
 
 
@@ -175,6 +176,12 @@ class SubscriberTests(test.TestCase):
         res = self.client.post(INDEX_URL, formData)
 
         self.assertRedirectsNoFollow(res, INDEX_URL)
+
+    def test_object_display(self):
+        subscriber = self.subscribers.get(uuid="1")
+        table = tables.SubscribersTable(self.request, [subscriber])
+        object_display = table.get_object_display(subscriber)
+        self.assertEquals(object_display, subscriber.username)
 
 
 class TextInputWithGenerator(test.TestCase):
