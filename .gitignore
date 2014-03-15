@@ -52,6 +52,7 @@ ChangeLog
 .*.swp
 
 # Application
-static/*
 wildcard/local/.secret_key_store
 wildcard/local/local_settings.py
+wildcard/static/dashboard/css/
+wildcard/static/dashboard/js/

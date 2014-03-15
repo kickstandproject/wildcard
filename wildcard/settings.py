@@ -40,7 +40,7 @@ LOGIN_REDIRECT_URL = '/'
 
 MEDIA_ROOT = os.path.abspath(os.path.join(ROOT_PATH, '..', 'media'))
 MEDIA_URL = '/media/'
-STATIC_ROOT = os.path.abspath(os.path.join(ROOT_PATH, '..', 'static'))
+STATIC_ROOT = os.path.abspath(os.path.join(ROOT_PATH, 'static'))
 STATIC_URL = '/static/'
 
 ROOT_URLCONF = 'wildcard.urls'
