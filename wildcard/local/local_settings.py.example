@@ -13,8 +13,17 @@
 # License for the specific language governing permissions and limitations
 # under the License.
 
+import os
+
 DEBUG = True
 TEMPLATE_DEBUG = DEBUG
+
+# Required for Django 1.5.
+# If wildcard is running in production (DEBUG is False), set this
+# with the list of host/domain names that the application can serve.
+# For more information see:
+# https://docs.djangoproject.com/en/dev/ref/settings/#allowed-hosts
+# #ALLOWED_HOSTS = ['wildcard.example.org', ]
 
 OPENSTACK_HOST = "127.0.0.1"
 OPENSTACK_KEYSTONE_URL = "http://%s:5000/v2.0" % OPENSTACK_HOST
@@ -50,6 +59,8 @@ OPENSTACK_KEYSTONE_BACKEND = {
 # Overrides the default domain used when running on single-domain model
 # with Keystone V3. All entities will be created in the default domain.
 # OPENSTACK_KEYSTONE_DEFAULT_DOMAIN = 'Default'
+
+LOCAL_PATH = os.path.dirname(os.path.abspath(__file__))
 
 # Set custom secret key:
 # You can either set it to a specific value or you can let horizion generate a
