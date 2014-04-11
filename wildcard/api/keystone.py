@@ -23,6 +23,7 @@ import logging
 import urlparse
 
 from django.conf import settings  # noqa
+from django.contrib.auth import authenticate
 from django.contrib.auth import logout  # noqa
 from django.utils.translation import ugettext_lazy as _  # noqa
 
@@ -140,6 +141,32 @@ def keystoneclient(request, admin=False):
     The client is cached so that subsequent API calls during the same
     request/response cycle don't have to be re-authenticated.
     """
+    api_version = VERSIONS.get_active_version()
+    if not request:
+        endpoint = settings.OPENSTACK_KEYSTONE_URL
+        LOG.debug(
+            "Creating a new keystoneserviceclient connection to %s." % endpoint
+        )
+        user = authenticate(
+            username=settings.WILDCARD_ADMIN_USER,
+            password=settings.WILDCARD_ADMIN_PASSWORD,
+            auth_url=endpoint,
+        )
+        catalog = user.service_catalog
+        service = base.get_service_from_catalog(catalog, 'identity')
+        endpoint = base.get_url_for_service(
+            service,
+            user.services_region,
+            endpoint_type='adminURL',
+        )
+        return api_version['client'].Client(
+            token=user.token.id,
+            endpoint=endpoint,
+            insecure=getattr(settings, 'OPENSTACK_SSL_NO_VERIFY', False),
+            cacert=getattr(settings, 'OPENSTACK_SSL_CACERT', None),
+            debug=settings.DEBUG,
+        )
+
     user = request.user
     if admin:
         if not user.is_superuser:
@@ -149,8 +176,6 @@ def keystoneclient(request, admin=False):
         endpoint_type = getattr(settings,
                                 'OPENSTACK_ENDPOINT_TYPE',
                                 'internalURL')
-
-    api_version = VERSIONS.get_active_version()
 
     # Take care of client connection caching/fetching a new client.
     # Admin vs. non-admin clients are cached separately for token matching.
@@ -402,6 +427,16 @@ def user_update_tenant(request, user, project, admin=True):
         return manager.update_tenant(user, project)
     else:
         return manager.update(user, project=project)
+
+
+def user_find(request, admin=False, **kwargs):
+    manager = keystoneclient(request, admin=admin).users
+    user = None
+    try:
+        user = VERSIONS.upgrade_v2_user(manager.find(**kwargs))
+    except keystone_exceptions.NotFound:
+        pass
+    return user
 
 
 def group_create(request, domain_id, name, description=None):

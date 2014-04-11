@@ -14,12 +14,16 @@
 #    License for the specific language governing permissions and limitations
 #    under the License.
 
+from django.core.urlresolvers import reverse_lazy
 from django import shortcuts
 from django.views.decorators import vary
 
 import horizon
+from horizon.forms import ModalFormView
 
 from openstack_auth import views
+
+from wildcard.forms import ForgotUsernameForm
 
 
 def get_user_home(user):
@@ -36,3 +40,10 @@ def splash(request):
     request.session.clear()
     request.session.set_test_cookie()
     return shortcuts.render(request, 'splash.html', {'form': form})
+
+
+class ForgotUsername(ModalFormView):
+
+    form_class = ForgotUsernameForm
+    template_name = 'forgot-username.html'
+    success_url = reverse_lazy('splash')

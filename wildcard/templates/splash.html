@@ -1,0 +1,23 @@
+{% load branding %}
+{% load i18n %}
+
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta content='text/html; charset=utf-8' http-equiv='Content-Type' />
+    <title>{% trans "Login" %} - {% site_branding %}</title>
+    {% include "_stylesheets.html" %}
+    {% include "horizon/_conf.html" %}
+    {% include "horizon/client_side/_script_loader.html" %}
+  </head>
+  <body id="splash" ng-app='horizonApp'>
+    <div id="container">
+      <div id='main_content'>
+        {% include "horizon/_messages.html" %}
+        {% include 'auth/_login.html' %}
+      </div>
+    </div>
+    {% include "horizon/_scripts.html" %}
+    <div id="modal_wrapper" />
+  </body>
+</html>

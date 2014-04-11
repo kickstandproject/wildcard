@@ -158,6 +158,12 @@ KICKSTAND_RANDOM_PASSWORD_LENGTH = 12
 import string
 KICKSTAND_RANDOM_PASSWORD_CHARS = string.ascii_letters + string.digits
 
+# we should force usage of v2.0 keystoneclient, since we specify
+# v2.0 keystone endpoint
+OPENSTACK_API_VERSIONS = {
+    'identity': 2.0,
+}
+
 try:
     from local.local_settings import *  # noqa
 except ImportError:

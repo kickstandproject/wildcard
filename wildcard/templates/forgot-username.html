@@ -1,0 +1,18 @@
+{% load branding %}
+{% load i18n %}
+
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta content='text/html; charset=utf-8' http-equiv='Content-Type' />
+    <title>{% trans "Forgot Username" %} - {% site_branding %}</title>
+    {% include "_stylesheets.html" %}
+  </head>
+  <body>
+    <div id="container">
+      <div id='main_content'>
+        {% include '_forgot-username.html' %}
+      </div>
+    </div>
+  </body>
+</html>

@@ -1,0 +1,21 @@
+{% extends "horizon/common/_modal_form.html" %}
+{% load i18n %}
+{% load url from future %}
+
+{% block form_id %}forgot_username_form{% endblock %}
+{% block form_action %}{% url 'forgot-username' %}{% endblock %}
+
+{% block modal-header %}{% trans "Forgot Username" %}{% endblock %}
+
+{% block modal-body %}
+<div class="left">
+    <fieldset>
+        {% include "horizon/common/_form_fields.html" %}
+    </fieldset>
+</div>
+{% endblock %}
+
+{% block modal-footer %}
+  <input class="btn btn-primary pull-right" type="submit" value="{% trans "Remind Username" %}" />
+  <a href="{% url 'login' %}" class="btn secondary cancel close">{% trans "Cancel" %}</a>
+{% endblock %}
